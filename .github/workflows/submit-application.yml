@@ -1,0 +1,26 @@
+name: Submit B12 Application
+
+on:
+  workflow_dispatch:
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Submit application
+        env:
+          NAME: "Efrain Renteria"
+          EMAIL: "orenteriab@gmail.com"
+          RESUME_LINK: "https://www.linkedin.com/in/o-efrain-r-0523623a/"
+          REPOSITORY_LINK: "${{ github.server_url }}/${{ github.repository }}"
+          ACTION_RUN_LINK: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          SIGNING_SECRET: ${{ secrets.SIGNING_SECRET }}
+        run: python submit.py
